@@ -1,4 +1,4 @@
-# Real-Time Chat App (Rust & React)
+l# Real-Time Chat App (Rust & React)
 
 ## Project Description/Vision
 
@@ -70,36 +70,36 @@ This project is still in its early stages and isn't fully complete yet. See the 
 
 ### Clone the repository
 ```
-  git clone https://github.com/J-Snook/chat-app.git
+git clone https://github.com/J-Snook/chat-app.git
 ```
 ### Backend Setup
 ```
-  cd chat-app/back-end
+cd chat-app/back-end
 ```
 Download and install sqitch through Docker [Sqitch Download](https://sqitch.org/download/docker/)
 Set up an ``.env`` by filling in ``.env.example`` with values
 ```
-  docker compose up -d
+docker compose up -d
 ```
 To launch the postgres database
 ```
- ./sqitch deploy
+./sqitch deploy
 ```
 To create the tables
 ```
-  cargo run
+cargo run
 ```
 Now the RESTful API should be working on ``127.0.0.1:8080``
 
 ## Frontend Setup
 ```
-  cd ../front-end
+cd ../front-end
 ```
 ```
-  npm install
+npm install
 ```
 ```
   npx vite
 ```
 
-Thanks for reading. Any questions, queries or suggestions feel free to reach out to me here or my [email](mailto:reachout@jsnook.co.uk) (reachout@jsnook.co.uk)
+Thanks for reading. Any questions, queries or suggestions, feel free to reach out to me here or my email (reachout@jsnook.co.uk)
