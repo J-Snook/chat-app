@@ -1,4 +1,4 @@
-l# Real-Time Chat App (Rust & React)
+# Real-Time Chat App (Rust & React)
 
 ## Project Description/Vision
 
