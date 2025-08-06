@@ -36,7 +36,7 @@ impl ResponseError for ApiError {
             ApiError::Forbidden(message) => HttpResponse::Forbidden().json(ErrorOutput {error: message.to_string() }),
             ApiError::BadRequest(message) => HttpResponse::BadRequest().json(ErrorOutput {error: message.to_string() }),
             ApiError::Conflict(message) => HttpResponse::Conflict().json(ErrorOutput {error: message.to_string() }),
-            ApiError::NotFound => HttpResponse::NotFound().finish(),
+            ApiError::NotFound | ApiError::Database(sqlx::Error::RowNotFound)  => HttpResponse::NotFound().finish(),
             _ => {
                 eprintln!("Error: {:?}", self);
                 HttpResponse::InternalServerError().body("An internal server error occurred")

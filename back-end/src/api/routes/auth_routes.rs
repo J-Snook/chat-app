@@ -1,5 +1,5 @@
 use actix_web::web;
-use crate::api::handlers::auth_handlers::handle_register;
+use crate::api::handlers::auth_handlers::{handle_login, handle_register};
 
 pub fn configure_auth_routes(cfg: &mut web::ServiceConfig) {
     cfg.service(
@@ -7,6 +7,10 @@ pub fn configure_auth_routes(cfg: &mut web::ServiceConfig) {
             .service(
                 web::resource("/register")
                     .route(web::post().to(handle_register))
+            )
+            .service(
+                web::resource("/login")
+                    .route(web::post().to(handle_login))
             )
     );
 }

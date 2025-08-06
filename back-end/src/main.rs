@@ -15,7 +15,7 @@ struct AppData {
 async fn main() -> std::io::Result<()> {
     dotenv::dotenv().ok();
 
-    let database_url = std::env::var("SQITCH_TARGET").expect("DATABASE_URL must be set");
+    let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     let pool = PgPoolOptions::new().connect(&database_url).await.unwrap();
 
     let app_data = AppData { pool };
