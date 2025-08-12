@@ -34,7 +34,7 @@ This project is still in its early stages and isn't fully complete yet. See the 
 - [X] User Login endpoint
 - [X] JWT generation and validation
 - [X] Refresh Token and Logout endpoint
-- [ ] Middleware to restrict access
+- [X] Middleware to restrict access
 ### Phase 2: (Backend) Core chat system 
 - [ ] Get active rooms
 - [ ] Create a room
