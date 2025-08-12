@@ -8,7 +8,8 @@ use crate::api::routes::auth_routes::configure_auth_routes;
 
 #[derive(Clone)]
 struct AppData {
-    pool: Pool<Postgres>
+    pool: Pool<Postgres>,
+    jwt_secret: String,
 }
 
 #[actix_web::main]
@@ -16,9 +17,10 @@ async fn main() -> std::io::Result<()> {
     dotenv::dotenv().ok();
 
     let database_url = std::env::var("SQITCH_TARGET").expect("SQITCH_TARGET must be set");
+    let jwt_secret = std::env::var("JWT_SECRET").expect("JWT_SECRET must be set");
     let pool = PgPoolOptions::new().connect(&database_url).await.unwrap();
 
-    let app_data = AppData { pool };
+    let app_data = AppData { pool, jwt_secret };
 
     HttpServer::new(move || {
         let cors = Cors::default()

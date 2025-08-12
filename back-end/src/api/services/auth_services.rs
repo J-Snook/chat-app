@@ -1,6 +1,9 @@
 use sqlx::{Pool, Postgres};
+use uuid::Uuid;
 use crate::api::utils::api_errors::ApiError;
 use crate::api::models::auth_models::{AuthPublicUser, AuthUser};
+use crate::api::services::cookies_service::CookieService;
+use crate::api::services::jwt_services::JwtService;
 use crate::api::utils::consts::{DUMMY_PASSWORD_HASH, HASHING_COST};
 
 pub struct AuthService;
@@ -12,7 +15,7 @@ impl AuthService {
         Ok(user)
     }
 
-    pub async fn login_user(pool: &Pool<Postgres>, username: &str, password: &str) -> Result<(), ApiError> {
+    pub async fn login_user(pool: &Pool<Postgres>, username: &str, password: &str) -> Result<AuthPublicUser, ApiError> {
         let user = match Self::get_user_by_username(pool, username).await {
             Ok(user) => user,
             Err(ApiError::Database(sqlx::Error::RowNotFound)) => {
@@ -25,7 +28,14 @@ impl AuthService {
             return Err(ApiError::Unauthorized("Invalid username or password".to_string()))
         }
 
-        Ok(())
+        Ok(AuthPublicUser::from(user))
+    }
+
+    pub async fn refresh_token(pool: &Pool<Postgres>, jwt_secret: &str, refresh_token: &str) -> Result<i64, ApiError> {
+        let claims = JwtService::verify_token(refresh_token, jwt_secret)?;
+        CookieService::check_token_in_database(pool,&claims.jti).await?;
+        CookieService::revoke_refresh_token(pool,&claims.jti).await?;
+        Ok(claims.sub)
     }
 
     fn hash_password(password: &str) -> Result<String, ApiError> {

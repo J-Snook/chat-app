@@ -22,6 +22,9 @@ pub enum ApiError {
     #[error("Conflict")]
     Conflict(String),
 
+    #[error("Other Error")]
+    Other(String),
+
     #[error("Validation Error")]
     ValidationError(String),
 
