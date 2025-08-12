@@ -9,7 +9,7 @@ impl JwtService {
         Ok(jsonwebtoken::encode(&Header::default(),token_claims,&EncodingKey::from_secret(jwt_secret.as_ref()))?)
     }
 
-    pub fn verify_token(token: &str, jwt_secret: &str) -> Result<TokenClaims,ApiError> {
+    pub fn verify_token(jwt_secret: &str, token: &str) -> Result<TokenClaims,ApiError> {
         match jsonwebtoken::decode::<TokenClaims>(token,&DecodingKey::from_secret(jwt_secret.as_ref()),&Validation::new(Algorithm::HS256)) {
             Ok(decoded_token) => Ok(decoded_token.claims),
             Err(err) => Err(ApiError::from(err))

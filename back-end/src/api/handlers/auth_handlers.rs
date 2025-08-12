@@ -31,7 +31,7 @@ pub async fn handle_logout(app_data: Data<AppData>, req: HttpRequest) -> Result<
 pub async fn handle_refresh(app_data: Data<AppData>, req: HttpRequest) -> Result<impl Responder, ApiError> {
     let refresh_token = match req.cookie("refresh_token") {
         Some(cookie) => cookie.value().to_string(),
-        None => return Err(ApiError::Unauthorized("Invalid username or password".to_string()))
+        None => return Err(ApiError::Unauthorized("No refresh token found, please login again".to_string()))
     };
     let user_id = AuthService::refresh_token(&app_data.pool,&app_data.jwt_secret,&refresh_token).await?;
     let (new_refresh_token,refresh_claims) = CookieService::create_refresh_token(&app_data.jwt_secret,&app_data.pool,&user_id).await?;
@@ -43,4 +43,8 @@ pub async fn handle_refresh(app_data: Data<AppData>, req: HttpRequest) -> Result
         .cookie(is_logged_in_cookie)
         .json("Refreshed Token");
     Ok(response)
+}
+
+pub async fn handle_me(app_data: Data<AppData>) -> Result<impl Responder, ApiError> {
+    Ok(HttpResponse::NotImplemented().json("logged out"))
 }

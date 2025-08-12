@@ -7,9 +7,9 @@ use actix_cors::Cors;
 use crate::api::routes::auth_routes::configure_auth_routes;
 
 #[derive(Clone)]
-struct AppData {
-    pool: Pool<Postgres>,
-    jwt_secret: String,
+pub struct AppData {
+    pub pool: Pool<Postgres>,
+    pub jwt_secret: String,
 }
 
 #[actix_web::main]

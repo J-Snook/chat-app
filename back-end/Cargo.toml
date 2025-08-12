@@ -16,3 +16,4 @@ bcrypt = "0.17.0"
 actix = "0.13.5"
 dotenv = "0.15.0"
 sqlx = { version = "0.8.6", features = ["runtime-async-std-native-tls","macros", "postgres", "ipnetwork", "chrono","uuid"] }
+futures-util = "0.3.31"
