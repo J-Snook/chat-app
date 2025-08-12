@@ -31,7 +31,7 @@ This project is still in its early stages and isn't fully complete yet. See the 
 
 ### Phase 1: (Backend) Core Authentication and Users (In Progress)
 - [X] Register user endpoint 
-- [ ] User Login endpoint
+- [X] User Login endpoint
 - [ ] JWT generation and validation
 - [ ] Refresh Token endpoint
 - [ ] Middleware to restrict access
