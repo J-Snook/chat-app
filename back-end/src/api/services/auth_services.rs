@@ -38,6 +38,11 @@ impl AuthService {
         Ok(claims.sub)
     }
 
+    pub async fn logout_user(pool: &Pool<Postgres>, refresh_uuid: &Uuid) -> Result<(), ApiError> {
+        CookieService::revoke_refresh_token(pool,refresh_uuid).await?;
+        Ok(())
+    }
+
     fn hash_password(password: &str) -> Result<String, ApiError> {
         Ok(bcrypt::hash(password, HASHING_COST)?)
     }
@@ -63,6 +68,13 @@ impl AuthService {
 
     async fn get_user_by_username(pool: &Pool<Postgres>, username: &str) -> Result<AuthUser, ApiError> {
         let result = sqlx::query_as!(AuthUser,"SELECT id, username, password_hash FROM users WHERE username = $1",username)
+            .fetch_one(pool)
+            .await?;
+        Ok(result)
+    }
+
+    pub async fn get_user_by_id(pool: &Pool<Postgres>, id: &i64) -> Result<AuthPublicUser, ApiError> {
+        let result = sqlx::query_as!(AuthPublicUser,"SELECT id, username FROM users WHERE id = $1",id)
             .fetch_one(pool)
             .await?;
         Ok(result)

@@ -1,11 +1,11 @@
-use crate::api::services::cookies_service::CookieType;
 use crate::api::utils::api_errors::ApiError;
 use crate::api::utils::consts::{ACCESS_TOKEN_DURATION, REFRESH_TOKEN_DURATION};
 use chrono::{DateTime, TimeZone, Utc};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
+use crate::api::models::cookie_models::CookieType;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct TokenClaims {
     pub sub: i64,
     pub exp: i64,

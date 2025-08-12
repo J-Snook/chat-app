@@ -1,20 +1,13 @@
+use crate::api::models::cookie_models::CookieType;
 use crate::api::models::jwt_models::TokenClaims;
 use crate::api::services::jwt_services::JwtService;
 use crate::api::utils::api_errors::ApiError;
 use crate::api::utils::consts::{ACCESS_TOKEN_DURATION, REFRESH_TOKEN_DURATION};
 use actix_web::cookie::{Cookie, SameSite};
-use serde::{Deserialize, Serialize};
 use sqlx::{Pool, Postgres};
 use uuid::Uuid;
 
 pub struct CookieService;
-
-#[derive(Serialize, Deserialize)]
-pub enum CookieType {
-    Refresh,
-    Access,
-    LoggedInCookie
-}
 
 impl CookieService {
     pub async fn create_refresh_token(jwt_secret:&str,pool: &Pool<Postgres>, user_id: &i64) -> Result<(Cookie<'static>, TokenClaims),ApiError> {
