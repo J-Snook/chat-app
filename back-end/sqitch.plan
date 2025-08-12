@@ -2,3 +2,4 @@
 %project=chat_app
 
 users_table 2025-08-05T19:05:05Z Joshua <joshua@joshua-computer> # Created the Users Table
+refresh_tokens_table [users_table] 2025-08-12T12:45:57Z Joshua <joshua@joshua-computer> # Created table for managing refresh tokens

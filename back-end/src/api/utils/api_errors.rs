@@ -22,11 +22,19 @@ pub enum ApiError {
     #[error("Conflict")]
     Conflict(String),
 
+    #[error("Validation Error")]
+    ValidationError(String),
+
     #[error("Hashing Error")]
     Hashing(#[from] BcryptError),
 
     #[error("Database Error")]
-    Database(#[from] sqlx::Error)
+    Database(#[from] sqlx::Error),
+
+    #[error("JWT Error")]
+    JWTError(#[from] jsonwebtoken::errors::Error)
+
+
 }
 
 impl ResponseError for ApiError {
