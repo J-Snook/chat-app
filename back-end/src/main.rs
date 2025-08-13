@@ -5,6 +5,7 @@ use sqlx::{Pool, Postgres};
 use sqlx::postgres::PgPoolOptions;
 use actix_cors::Cors;
 use crate::api::routes::auth_routes::configure_auth_routes;
+use crate::api::routes::rooms_routes::configure_rooms_routes;
 
 #[derive(Clone)]
 pub struct AppData {
@@ -47,6 +48,7 @@ fn configure_routes(cfg: &mut web::ServiceConfig) {
             .service(
                 web::scope("/api")
                     .configure(configure_auth_routes)
+                    .configure(configure_rooms_routes)
             )
             .service(
                 web::scope("/ws")

@@ -3,3 +3,4 @@
 
 users_table 2025-08-05T19:05:05Z Joshua <joshua@joshua-computer> # Created the Users Table
 refresh_tokens_table [users_table] 2025-08-12T12:45:57Z Joshua <joshua@joshua-computer> # Created table for managing refresh tokens
+rooms_table [users_table] 2025-08-13T12:02:35Z Joshua <joshua@joshua-computer> # Created Rooms Table Schema
